@@ -1,0 +1,6 @@
+
+welcome: "Welcome to the Loan Calculator!"
+loan_amount: "How much is your loan amount?"
+apr: "What is the Annual Percentage Rate (APR)? Just provide the number without any extra character. For example, if your APR is 5%, please input 5."
+loan_duration_in_years: "How long is your loan duration in years? For example, if it is 30 years, please input 30."
+invalid_num: "Oops, looks like this was not a valid number. Please provide a valid number."
