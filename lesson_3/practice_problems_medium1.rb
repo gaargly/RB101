@@ -6,9 +6,19 @@
 The Flintstones Rock!
  The Flintstones Rock!
   The Flintstones Rock!
+   The Flintstones Rock!
+    The Flintstones Rock!
+     The Flintstones Rock!
+      The Flintstones Rock!
+       The Flintstones Rock!
+        The Flintstones Rock!
+         The Flintstones Rock!
 
+# Answer
+(0..9).each {|n| puts " " * n + "The Flintstones Rock!"}
 
-## HOW??
+# Launch School answer
+10.times {|number| puts (" " * number + "The Flintstones Rock!")}
 
 
 # Question 2
@@ -20,8 +30,10 @@ puts "the value of 40 + 2 is " + (40 + 2)
 # This errors because the + method will not concatenate between two data types like this. + (40 + 2) can't be coerced into a string.
 
 # We can fix it by using string interpolation:
-
 puts "the value of 40 + 2 is #{(40 + 2)}"
+
+# This would also work
+puts "the value of 40 + 2 is " + (40 + 2).to_s
 
 # Question 3
 # Alan wrote the following method, which was intended to show all of the factors of the input number:
@@ -38,6 +50,7 @@ end
 
 # Alyssa noticed that this will fail if the input is 0, or a negative number, and asked Alan to change the loop. How can you make this work without using the begin/end until construct? Note that we're not looking to find the factors for 0 or negative numbers, but we just want to handle it gracefully instead of raising an exception or going into an infinite loop.
 
+# My Answer
 def factors(num)
   divisor = num
   factors = []
@@ -53,24 +66,32 @@ def factors(num)
   factors
 end
 
+# Launch School Answer
+def factors(number)
+  divisor = number
+  factors = []
+  while divisor > 0 # Use while loop
+    factors << number / divisor if number % divisor == 0
+    divisor -= 1
+  end
+  factors
+end
+
 # Bonus 1
 # What is the purpose of the number % divisor == 0 ?
-
-# The purpose of this is to implement the definition "factor." Factor is defined as a number that divides the given number without any remainder. We're looking for no remainders when the number that is passed into the factors method as an argument is being divided by progressively smaller divisors.
-
+# ANSWER: The purpose of this is to implement the definition "factor." Factor is defined as a number that divides the given number without any remainder. We're looking for no remainders when the number that is passed into the factors method as an argument is being divided by progressively smaller divisors.
 
 # Bonus 2
 # What is the purpose of the second-to-last line (line 8) in the method (the factors before the method's end)?
-
-# The purpose of the second-to-last line is to return the factors array explicitly.
+# ANSWER: The purpose of the second-to-last line is to return the factors array explicitly.
 
 # Question 4
 # Alyssa was asked to write an implementation of a rolling buffer. Elements are added to the rolling buffer and if the buffer becomes full, then new elements that are added will displace the oldest elements in the buffer.
 
-#She  wrote two implementations saying, "Take your pick. Do you like << or + for modifying the buffer?". Is there a difference between the two, other than what operator she chose to use to concatenate an element to the buffer?
+# She wrote two implementations saying, "Take your pick. Do you like << or + for modifying the buffer?". Is there a difference between the two, other than what operator she chose to use to concatenate an element to the buffer?
 
 def rolling_buffer1(buffer, max_buffer_size, new_element)
-  buffer << new_element # This uses the mutating method << which means that the object that the variable buffer is pointing to will be mutated and this change will persist next time buffer's value is referenced.
+  buffer << new_element # This uses the mutating method << which means that the object that the variable buffer is pointing to (i.e. the input array) will be mutated and this change will persist next time buffer's value is referenced.
   buffer.shift if buffer.size > max_buffer_size
   buffer
 end
@@ -80,6 +101,14 @@ def rolling_buffer2(input_array, max_buffer_size, new_element)
   buffer.shift if buffer.size > max_buffer_size
   buffer
 end
+
+# Launch School Answer
+
+# Yes, there are several differences.
+
+# Both methods have the same return value. However, the first implementation returns a reference to the object passed in as the buffer argument, while the second returns a new object. Furthermore, the first implementation mutates the argument given by the buffer argument, while the second does not mutate its input_array argument. That is, the code that calls rolling_buffer1 will see a modified array after the method returns, while the code that calls rolling_buffer2 will not see any changes in the array.
+
+# It's also worth nothing that Alyssa's first solution both returns a meaningful value and has a side effect. As we learned earlier, that's something we should avoid. Thus, the second solution is probably the better of the two.
 
 # See object_ids of relevant objects below:
 
@@ -122,7 +151,7 @@ end
 result = fib(0, 1)
 puts "result is #{result}"
 
-# My Answer: I would pass limit in as an argument to the method
+# My Answer: I would define limit as an argument to the method
 
 def fib(first_num, second_num, limit)
   while first_num + second_num < limit
@@ -133,7 +162,7 @@ def fib(first_num, second_num, limit)
   sum
 end
 
-result = fib(0, 1, 5)
+result = fib(0, 1, 5) # I would pass the limit into the method fib when calling fib
 puts "result is #{result}"
 
 # Question 6
@@ -174,7 +203,7 @@ mess_with_demographics(munsters)
 # Yes, the family's data gets messed up.
 
 # Launch School Answer
-# So Spot's demo_hash is pointing to the munsters hash. In this case, the program does not create a new hash for the result -- it just uses the existing hash as-is. So the actual hash object that is being messed with inside of the method IS the munsters hash.
+# Spot's demo_hash is pointing to the munsters hash. In this case, the program does not create a new hash for the result -- it just uses the existing hash as-is. So the actual hash object that is being messed with inside of the method IS the munsters hash.
 
 # Question 8
 
